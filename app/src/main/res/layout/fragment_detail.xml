@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:tag="#ffffff"
+    tools:context="nhatan172.noteapp.detail.DetailActivity">
+    <TextView
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tv_time_created2"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_marginLeft="10dp"
+        android:id="@+id/et_title2"
+        android:textStyle="bold"
+        android:hint="Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1" />
+    <EditText
+        android:layout_marginLeft="10dp"
+        android:id="@+id/et_note2"
+        android:hint="Note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/perm_group_device_alarms"
+            android:scaleType="fitXY"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:text="Alarm"
+                android:id="@+id/tv_alarm2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/ll_dateTimePicker2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/sp_date2"
+                    android:layout_width="wrap_content"
+                    android:minWidth="75dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:dropDownVerticalOffset="20dp"
+                    />
+                <Spinner
+                    android:id="@+id/sp_time2"
+                    android:minWidth="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:dropDownVerticalOffset="20dp"
+                    android:dropDownWidth="wrap_content"
+                    ></Spinner>
+                <ImageView
+                    android:id="@+id/iv_close_picker"
+                    android:src="@drawable/ic_menu_close_clear_cancel"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitXY"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

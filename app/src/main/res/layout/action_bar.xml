@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="left|center_vertical"
+    app:theme="@style/ThemeOverlay.AppCompat.Light">
+    <ImageView
+        android:src="@drawable/app_icon"
+        android:scaleType="fitXY"
+        android:layout_height="25dp"
+        android:layout_width="25dp" />
+    <TextView
+        android:paddingLeft="7dp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/title"/>
+    <LinearLayout
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <ImageView
+            android:id="@+id/ib_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="right"
+            android:src="@drawable/add_icon"
+            android:onClick="goAddActivity"/>
+    </LinearLayout>
+
+</LinearLayout>
