@@ -1,4 +1,4 @@
-package nhatan172.noteapp.detail;
+package nhatan172.noteapp.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -22,19 +22,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import nhatan172.noteapp.NoteModel.Note;
-import nhatan172.noteapp.addition.AddActivity;
-import nhatan172.noteapp.general.AlarmReceiver;
-import nhatan172.noteapp.NoteModel.NoteContent;
-import nhatan172.noteapp.NoteModel.NoteDbHelper;
+import nhatan172.noteapp.db.db.table.NoteTable;
+import nhatan172.noteapp.model.Note;
+import nhatan172.noteapp.custom.view.DetailPager;
+import nhatan172.noteapp.activity.fragment.PlaceholderFragment;
+import nhatan172.noteapp.custom.adapter.SectionsPagerAdapter;
+import nhatan172.noteapp.notification.AlarmReceiver;
+import nhatan172.noteapp.utils.NoteContent;
+import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.R;
-import nhatan172.noteapp.general.StaticMethod;
-import nhatan172.noteapp.main.MainActivity;
+import nhatan172.noteapp.utils.StaticMethod;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -46,9 +47,11 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
     private ImageView iv_previous;
     private  TextView tv_actionbar;
     private AlertDialog alertDialog;
-    private NoteDbHelper mDBHelper;
+    private DatabaseManager mDBHelper;
     private String share = "Note";
     private int position = 0;
+    private NoteTable mNoteTable ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,8 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
 
         initActoionBar();
         initFragmentPaper();
-        mDBHelper = new NoteDbHelper(this);
+        mDBHelper = new DatabaseManager(this);
+        mNoteTable = mDBHelper.getNoteTable();
         NoteContent noteContent = new NoteContent(mDBHelper);
         noteContent.getNoteContent();
 
@@ -96,7 +100,7 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
         mDetailPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Note note = NoteContent.noteContent.get(mDetailPager.getCurrentItem());
+                Note note = NoteContent.sNoteContent.get(mDetailPager.getCurrentItem());
                 tv_actionbar.setText(note.getTitle());
                 share = note.getTitle()+"\n"+note.getNote();
             }
@@ -159,9 +163,9 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                int index = NoteContent.noteContent.get(mDetailPager.getCurrentItem()).getIndex();
-                mDBHelper.deleteNote(index);
-                if(NoteContent.noteContent.get(mDetailPager.getCurrentItem()).hasAlarm())
+                int index = NoteContent.sNoteContent.get(mDetailPager.getCurrentItem()).getIndex();
+                mNoteTable.deleteNote(index);
+                if(NoteContent.sNoteContent.get(mDetailPager.getCurrentItem()).hasAlarm())
                     cancelAlarm(index);
                 mDBHelper.close();
                 Intent intent = new Intent(getBaseContext(),MainActivity.class);
@@ -223,7 +227,7 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
 
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent newIntent = new Intent(DetailActivity.this, AddActivity.class);
+                Intent newIntent = new Intent(DetailActivity.this, AdditionActivity.class);
                 DetailActivity.this.onStop();
                 startActivity(newIntent);
                 return true;
@@ -236,7 +240,7 @@ public class DetailActivity extends AppCompatActivity implements PlaceholderFrag
         backActivity();
     }
 
-    public NoteDbHelper getmDBHelper() {
+    public DatabaseManager getmDBHelper() {
         return mDBHelper;
     }
     private void cancelAlarm(int index) {

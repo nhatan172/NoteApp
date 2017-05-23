@@ -1,4 +1,4 @@
-package nhatan172.noteapp.main;
+package nhatan172.noteapp.activity.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import nhatan172.noteapp.NoteModel.NoteContent;
+import nhatan172.noteapp.custom.adapter.MyNoteRecyclerViewAdapter;
+import nhatan172.noteapp.utils.NoteContent;
 import nhatan172.noteapp.R;
 
 
@@ -68,7 +69,7 @@ public class NoteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(NoteContent.noteContent, mListener));
+            recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(NoteContent.sNoteContent, mListener));
         }
         return view;
     }

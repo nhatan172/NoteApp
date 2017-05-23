@@ -11,17 +11,17 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addition.AddActivity">
+        <activity android:name=".activity.AdditionActivity">
         </activity>
         <activity
-            android:name=".detail.DetailActivity"
+            android:name=".activity.DetailActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:fitsSystemWindows="true">
             <intent-filter>
@@ -30,7 +30,7 @@
         </activity>
 
         />
-        <receiver android:name=".general.AlarmReceiver" android:enabled="true"
+        <receiver android:name=".notification.AlarmReceiver" android:enabled="true"
             android:exported="true"/>
     </application>
 

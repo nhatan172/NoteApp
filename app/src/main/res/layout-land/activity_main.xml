@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackGround"
-    tools:context="nhatan172.noteapp.main.MainActivity">
+    tools:context="nhatan172.noteapp.Note.activity.MainActivity">
     <RelativeLayout
         android:gravity="center"
         android:id="@+id/note_fragment"

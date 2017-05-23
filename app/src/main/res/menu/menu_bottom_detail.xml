@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="nhatan172.noteapp.detail.DetailActivity"
+    tools:context="nhatan172.noteapp.Note.activity.DetailActivity"
     tools:ignore="MenuTitle"
     >
     <item

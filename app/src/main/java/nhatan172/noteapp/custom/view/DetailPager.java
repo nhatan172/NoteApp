@@ -1,4 +1,4 @@
-package nhatan172.noteapp.detail;
+package nhatan172.noteapp.custom.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -19,13 +19,11 @@ public class DetailPager extends ViewPager {
     }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
         return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
         return false;
     }
 

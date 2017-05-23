@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="2"
-    tools:context="nhatan172.noteapp.detail.DetailActivity"
+    tools:context="nhatan172.noteapp.activity.DetailActivity"
     android:orientation="vertical">
 
-    <nhatan172.noteapp.detail.DetailPager
+    <nhatan172.noteapp.custom.view.DetailPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-    />
+        android:layout_weight="1" />
     <LinearLayout
         android:background="@color/barColor"
         android:layout_width="match_parent"
@@ -35,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:src="@drawable/ic_menu_share"
-            android:onClick="shareNote"
-            />
+            android:onClick="shareNote"/>
         <ImageView
             android:layout_weight="1"
             android:id="@+id/iv_delete"

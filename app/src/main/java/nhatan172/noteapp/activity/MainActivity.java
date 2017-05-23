@@ -1,4 +1,4 @@
-package nhatan172.noteapp.main;
+package nhatan172.noteapp.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -11,13 +11,12 @@ import android.view.View;
 import  android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.app.ActionBar;
 
-import nhatan172.noteapp.addition.AddActivity;
-import nhatan172.noteapp.detail.DetailActivity;
-import nhatan172.noteapp.NoteModel.NoteContent;
-import nhatan172.noteapp.NoteModel.NoteDbHelper;
+import nhatan172.noteapp.utils.NoteContent;
+import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.R;
+import nhatan172.noteapp.activity.fragment.NoteFragment;
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
     private static Context context;
     private NoteFragment bf;
     public static Context getAppContext(){
@@ -32,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
 
         setActionBar();
 
-        NoteDbHelper mNoteDbHelper = new NoteDbHelper(this);
-        NoteContent noteContent = new NoteContent(mNoteDbHelper);
+        DatabaseManager mDatabaseManager = new DatabaseManager(this);
+        NoteContent noteContent = new NoteContent(mDatabaseManager);
         noteContent.getNoteContent();
         if(savedInstanceState == null) {
             bf = NoteFragment.newInstance();
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
     }
 
     public void goAddActivity(View clickedButton){
-        Intent newActivity = new Intent(this, AddActivity.class);
+        Intent newActivity = new Intent(this, AdditionActivity.class);
         startActivity(newActivity);
     }
 

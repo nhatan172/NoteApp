@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorWhite"
     android:tag="#ffffff"
-    tools:context="nhatan172.noteapp.detail.DetailActivity">
+    tools:context="nhatan172.noteapp.Note.activity.DetailActivity">
     <TextView
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"

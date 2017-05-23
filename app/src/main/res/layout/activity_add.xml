@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@color/colorWhite"
-    tools:context="nhatan172.noteapp.addition.AddActivity">
+    tools:context="nhatan172.noteapp.Note.activity.AdditionActivity">
     <TextView
         android:layout_marginRight="13dp"
         android:layout_marginTop="20dp"

@@ -1,23 +1,29 @@
-package nhatan172.noteapp.NoteModel;
+package nhatan172.noteapp.utils;
 
 import android.database.Cursor;
 
 import java.util.ArrayList;
+
+import nhatan172.noteapp.db.DatabaseManager;
+import nhatan172.noteapp.db.db.table.NoteTable;
+import nhatan172.noteapp.model.Note;
 
 /**
  * Created by nhata on 29/04/2017.
  */
 
 public class NoteContent {
-    private NoteDbHelper mNoteDbHelper;
-    public static ArrayList<Note> noteContent;
+    private DatabaseManager mDatabaseManager;
+    private NoteTable mNoteTable;
+    public static ArrayList<Note> sNoteContent;
 
-    public NoteContent(NoteDbHelper noteDbHelper){
-            this.mNoteDbHelper = noteDbHelper;
+    public NoteContent(DatabaseManager databaseManager){
+        mDatabaseManager = databaseManager;
+        mNoteTable = mDatabaseManager.getNoteTable();
     }
 
     public ArrayList<Note> getNoteContent(){
-        Cursor result = mNoteDbHelper.getAllData();
+        Cursor result = mNoteTable.getAllData();
         result.moveToFirst();
         ArrayList<Note> noteContent = new ArrayList<Note>();
         while(result.isAfterLast()==false){
@@ -25,18 +31,18 @@ public class NoteContent {
             nt.setIndex(result.getInt(4));
             nt.setTitle(result.getString(0));
             nt.setNote(result.getString(1));
-            nt.setUpdated_time(result.getString(2));
+            nt.setUpdatedTime(result.getString(2));
             nt.setColor(result.getString(3));
             String alarmTime = result.getString(5);
             if(alarmTime!= null && !alarmTime.equals("")){
                 nt.setHasAlarm(true);
-                nt.setTime_alarm(alarmTime);
+                nt.setTimeAlarm(alarmTime);
             }
             noteContent.add(nt);
             result.moveToNext();
         }
-        mNoteDbHelper.close();
-        this.noteContent = noteContent;
+        mDatabaseManager.close();
+        sNoteContent = noteContent;
         return noteContent;
     }
 

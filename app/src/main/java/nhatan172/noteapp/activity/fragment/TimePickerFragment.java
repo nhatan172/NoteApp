@@ -1,4 +1,4 @@
-package nhatan172.noteapp.general;
+package nhatan172.noteapp.activity.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

@@ -1,4 +1,4 @@
-package nhatan172.noteapp.detail;
+package nhatan172.noteapp.activity.fragment;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -34,17 +34,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import nhatan172.noteapp.general.AlarmReceiver;
-import nhatan172.noteapp.NoteModel.Note;
-import nhatan172.noteapp.NoteModel.NoteContent;
-import nhatan172.noteapp.NoteModel.NoteDbHelper;
+import nhatan172.noteapp.activity.DetailActivity;
+import nhatan172.noteapp.db.db.table.NoteTable;
+import nhatan172.noteapp.notification.AlarmReceiver;
+import nhatan172.noteapp.model.Note;
+import nhatan172.noteapp.utils.NoteContent;
+import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.R;
-import nhatan172.noteapp.general.StaticMethod;
-import nhatan172.noteapp.main.MainActivity;
+import nhatan172.noteapp.utils.StaticMethod;
+import nhatan172.noteapp.activity.MainActivity;
 
-/**
- * Created by nhata on 04/05/2017.
- */
 
 public class PlaceholderFragment extends Fragment {
     /**
@@ -68,8 +67,9 @@ public class PlaceholderFragment extends Fragment {
     private ArrayList<String> listDate;
     private ImageView iv_close;
     private Note item;
-    private NoteDbHelper mDBHelper;
+    private DatabaseManager mDBHelper;
     private int agrs;
+    private NoteTable mNoteTable;
     public PlaceholderFragment() {
     }
 
@@ -93,8 +93,9 @@ public class PlaceholderFragment extends Fragment {
                              Bundle savedInstanceState) {
         DetailActivity detailActivity = (DetailActivity)getContext();
         mDBHelper = detailActivity.getmDBHelper();
+        mNoteTable = mDBHelper.getNoteTable();
         agrs = getArguments().getInt(ARG_SECTION_NUMBER);
-        item = NoteContent.noteContent.get(agrs);
+        item = NoteContent.sNoteContent.get(agrs);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         initView();
@@ -103,10 +104,10 @@ public class PlaceholderFragment extends Fragment {
         initSpinnerDate();
         initViewListener();
         if(item.hasAlarm()){
-            listDate.add(4,item.getTime_alarm().substring(0,10) );
+            listDate.add(4,item.getTimeAlarm().substring(0,10) );
             adapterDate.notifyDataSetChanged();
             sp_date.setSelection(5);
-            listTime.add(5, item.getTime_alarm().substring(11));
+            listTime.add(5, item.getTimeAlarm().substring(11));
             adapterTime.notifyDataSetChanged();
             sp_time.setSelection(6);
             tv_alarm.setVisibility(View.INVISIBLE);
@@ -156,7 +157,7 @@ public class PlaceholderFragment extends Fragment {
         tv_dateUpdate = (TextView)rootView.findViewById(R.id.tv_time_created2);
         et_note = (EditText)rootView.findViewById(R.id.et_note2);
         et_title = (EditText)rootView.findViewById(R.id.et_title2);
-        tv_dateUpdate.setText( item.getUpdated_time());
+        tv_dateUpdate.setText( item.getUpdatedTime());
         et_title.setText(item.getTitle());
         iv_close = (ImageView)rootView.findViewById(R.id.iv_close_picker);
         et_note.setText(item.getNote());
@@ -342,15 +343,15 @@ public class PlaceholderFragment extends Fragment {
         newItem.setNote(note);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String time = df.format(Calendar.getInstance().getTime());
-        newItem.setUpdated_time(time);
+        newItem.setUpdatedTime(time);
         newItem.setColor((String)ll_activity.getTag());
         newItem.setIndex(item.getIndex());
         String timeAlarm = "";
         if(ll_dateTimePicker.getVisibility() == View.VISIBLE) {
             timeAlarm = getAlarmTime();
-            newItem.setTime_alarm(timeAlarm);
+            newItem.setTimeAlarm(timeAlarm);
             newItem.setHasAlarm(true);
-            if(!item.getTime_alarm().equals(timeAlarm))
+            if(!item.getTimeAlarm().equals(timeAlarm))
                 setAlarm(item.getIndex(),timeAlarm,title);
         }
         else{
@@ -358,8 +359,8 @@ public class PlaceholderFragment extends Fragment {
             if(item.hasAlarm())
                 cancelAlarm(item.getIndex());
         }
-        mDBHelper.updateNote(newItem);
-        NoteContent.noteContent.set(agrs,newItem);
+        mNoteTable.updateNote(newItem);
+        NoteContent.sNoteContent.set(agrs,newItem);
         return true;
     }
 

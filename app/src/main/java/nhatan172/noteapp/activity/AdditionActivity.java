@@ -1,4 +1,4 @@
-package nhatan172.noteapp.addition;
+package nhatan172.noteapp.activity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -7,10 +7,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,15 +37,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import nhatan172.noteapp.general.AlarmReceiver;
-import nhatan172.noteapp.NoteModel.NoteDbHelper;
+import nhatan172.noteapp.db.db.table.NoteTable;
+import nhatan172.noteapp.model.Note;
+import nhatan172.noteapp.notification.AlarmReceiver;
+import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.R;
-import nhatan172.noteapp.general.StaticMethod;
-import nhatan172.noteapp.main.MainActivity;
+import nhatan172.noteapp.utils.StaticMethod;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class AddActivity extends AppCompatActivity {
+public class AdditionActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
     private LinearLayout ll;
@@ -53,7 +54,7 @@ public class AddActivity extends AppCompatActivity {
     private EditText et_note;
     private EditText et_title;
     private TextView tv_actionbar;
-    private NoteDbHelper mNoteDbHelper;
+    private DatabaseManager mDatabaseManager;
     private TextView tv_alarm;
     private LinearLayout ll_dateTimePicker;
     private ArrayAdapter<CharSequence> adapterTime;
@@ -62,13 +63,13 @@ public class AddActivity extends AppCompatActivity {
     private ArrayList<String> listDate;
     private Spinner sp_date;
     private Spinner sp_time;
-
+    private NoteTable mNoteTable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        mNoteDbHelper = new NoteDbHelper(this);
-
+        mDatabaseManager = new DatabaseManager(this);
+        mNoteTable = mDatabaseManager.getNoteTable();
         initView();
         initSpinnerTime();
         initSpinnerDate();
@@ -207,23 +208,29 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private boolean saveData() {
-        String note = StaticMethod.handleString(et_note.getText());
+        String noteText = StaticMethod.handleString(et_note.getText());
         String title = StaticMethod.handleString(et_title.getText());
-        if (title.isEmpty()) {
-            if (note.isEmpty())
-                return false;
-            else
-                title = note.substring(0, (note.length() < 25 ? note.length() : 25));
-        }
+        Note note = new Note();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String time = df.format(Calendar.getInstance().getTime());
         String timeAlarm = "";
+        if (title.isEmpty()) {
+            if (noteText.isEmpty())
+                return false;
+            else
+                title = noteText.substring(0, (noteText.length() < 25 ? noteText.length() : 25));
+        }
+
         if(ll_dateTimePicker.getVisibility() == View.VISIBLE)
             timeAlarm = getAlarmTime();
-        long noteIndex =  mNoteDbHelper.insertNote(title, note, mBackGroundColor, time,timeAlarm);
+        note.setTimeAlarm(title);
+        note.setColor(mBackGroundColor);
+        note.setUpdatedTime(time);
+        note.setTimeAlarm(timeAlarm);
+        long noteIndex =  mNoteTable.insertNote(note);
         if(ll_dateTimePicker.getVisibility() == View.VISIBLE)
             setAlarm(noteIndex,timeAlarm,title);
-        mNoteDbHelper.close();
+        mDatabaseManager.close();
         return true;
     }
 
@@ -254,7 +261,7 @@ public class AddActivity extends AppCompatActivity {
                 date = df.format(c.getTime());
                 break;
             case 5:
-                date = listDate.get(5);
+                date = listDate.get(4);
                 break;
             default:
                 date = df.format(c.getTime());
@@ -317,7 +324,7 @@ public class AddActivity extends AppCompatActivity {
                     Calendar c = Calendar.getInstance();
                     int h = c.get(Calendar.HOUR_OF_DAY);
                     int m = c.get(Calendar.MINUTE);
-                    final TimePickerDialog timePickerDialog = new TimePickerDialog(AddActivity.this, TimePickerDialog.THEME_HOLO_LIGHT, listener, h, m,
+                    final TimePickerDialog timePickerDialog = new TimePickerDialog(AdditionActivity.this, TimePickerDialog.THEME_HOLO_LIGHT, listener, h, m,
                             true);
                     timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
@@ -369,7 +376,7 @@ public class AddActivity extends AppCompatActivity {
                     int year = c.get(Calendar.YEAR);
                     int month = c.get(Calendar.MONTH);
                     int day = c.get(Calendar.DAY_OF_MONTH);
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivity.this, DatePickerDialog.THEME_HOLO_LIGHT, listener, year, month, day);
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(AdditionActivity.this, DatePickerDialog.THEME_HOLO_LIGHT, listener, year, month, day);
                     datePickerDialog.setTitle("Choose Date");
                     datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
