@@ -60,6 +60,7 @@ public class AdditionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         mNoteTable = mDatabaseManager.getNoteTable();
+        initActionBar();
         initView();
     }
     @Override
@@ -104,7 +105,6 @@ public class AdditionActivity extends BaseActivity {
         toolbar.setContentInsetsAbsolute(0, 0);
     }
     public void initView() {
-        initActionBar();
         TextView tv_time = (TextView) findViewById(R.id.tv_time_created);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String date = df.format(Calendar.getInstance().getTime());
@@ -134,7 +134,6 @@ public class AdditionActivity extends BaseActivity {
     }
 
     public void popUpColor(View clickedButton) {
-
         View customPopUp = getLayoutInflater().inflate(R.layout.dialog_select_color, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(customPopUp);

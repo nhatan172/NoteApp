@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity implements NoteFragment.OnListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setActionBar();
+
         if(savedInstanceState == null) {
             mNoteFragment = NoteFragment.newInstance();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -67,5 +69,7 @@ public class MainActivity extends BaseActivity implements NoteFragment.OnListFra
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         View customNav = LayoutInflater.from(this).inflate(R.layout.item_main_bar, null);
         actionBar.setCustomView(customNav, lp1);
+        Toolbar toolbar = (Toolbar) customNav.getParent();
+        toolbar.setContentInsetsAbsolute(0, 0);
     }
 }

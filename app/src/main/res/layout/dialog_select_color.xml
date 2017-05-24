@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="400dp"
-    android:layout_height="300dp"
-    android:background="#f2f2f2">
+    android:background="@drawable/pop_up_gradient"
+    android:layout_height="300dp">
     <TextView
         android:textSize="25dp"
         android:gravity="left|center_vertical"
         android:paddingLeft="30dp"
         android:text="@string/choose"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/popupText"/>
     <TableLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
 
     <LinearLayout
         android:weightSum="4"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,7 +45,7 @@
         <ImageView
             android:layout_weight="1"
             android:onClick="changeBackgroud"
-            android:tag="#ffad33"
+            android:tag="#ffe57f"
             android:id="@+id/iv_b2"
             android:layout_gravity="center"
             android:src="@drawable/square_ffad33"
@@ -53,7 +54,7 @@
         <ImageView
             android:layout_weight="1"
             android:onClick="changeBackgroud"
-            android:tag="#00ffbf"
+            android:tag="#69f0ae"
             android:id="@+id/iv_b3"
             android:layout_gravity="center"
             android:src="@drawable/square_00ffbf"
@@ -62,7 +63,7 @@
         <ImageView
             android:layout_weight="1"
             android:onClick="changeBackgroud"
-            android:tag="#66d9ff"
+            android:tag="#81d4fa"
             android:id="@+id/iv_b4"
             android:layout_gravity="center"
             android:src="@drawable/square_66d9ff"

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:gravity="left|center_vertical"
+    android:background="@drawable/top_bar_gradient"
     app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
     <ImageView
         android:src="@drawable/ic_back"
@@ -35,9 +36,8 @@
         android:layout_width="match_parent">
         <ImageView
             android:layout_marginRight="35dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:scaleType="fitXY"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_gravity="right|center_vertical"
             android:src="@drawable/ic_camera"
             android:onClick="getCamera"/>
@@ -45,14 +45,12 @@
             android:layout_marginRight="35dp"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:scaleType="fitXY"
             android:layout_gravity="right|center_vertical"
             android:src="@drawable/square_menu"
             android:onClick="popUpColor"/>
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="45dp"
-            android:scaleType="fitXY"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_gravity="right|center_vertical"
             android:src="@drawable/ic_btn_check_button"
             android:onClick="insertNote"/>

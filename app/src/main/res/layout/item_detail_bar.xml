@@ -4,58 +4,75 @@
     android:orientation="horizontal"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:gravity="left|center_vertical"
+    android:background="@drawable/top_bar_gradient"
+    android:weightSum="2"
     app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-    <ImageView
-        android:src="@drawable/ic_back"
-        android:scaleType="fitXY"
-        android:layout_height="25dp"
-        android:layout_width="25dp"
-        android:onClick="backAction"/>
-    <ImageView
-        android:src="@drawable/app_icon"
-        android:scaleType="fitXY"
-        android:layout_height="25dp"
-        android:layout_width="25dp"
-        android:onClick="backAction"/>
-    <TextView
-        android:id="@+id/tv_actionbar"
-        android:textColor="@color/colorWhite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/title"
-        android:maxLength="16"/>
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginRight="10dp"
-        android:gravity="right|center_vertical"
-        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:gravity="left|center_vertical"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/ic_back"
+            android:scaleType="fitXY"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:onClick="backAction"/>
+        <ImageView
+            android:src="@drawable/app_icon"
+            android:scaleType="fitXY"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:onClick="backAction"/>
+        <TextView
+            android:id="@+id/tv_actionbar"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/title"
+            android:maxLength="16"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:layout_height="match_parent"
         android:layout_width="match_parent">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
             android:layout_gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@drawable/ic_camera"
             android:onClick="getCamera"/>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
             android:layout_gravity="right|center_vertical"
+
+            android:layout_weight="1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/square_menu"
             android:onClick="popUpColor"/>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
             android:layout_gravity="right|center_vertical"
+
+            android:layout_weight="1"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@drawable/ic_btn_check_button"
             android:onClick="updateNote"/>
         <ImageView
+            android:layout_gravity="right|center_vertical"
+
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_menu_overflow"
+            android:layout_weight="1"
             android:onClick="newNote"
             />
     </LinearLayout>
-
 </LinearLayout>

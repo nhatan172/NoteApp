@@ -65,20 +65,23 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
         Bundle bundle = intent.getExtras();
         if (bundle != null){
             int mode = bundle.getInt(MODE_ARG);
-            if(mode == 1)
+            if(mode == 1) {
                 mPosition = bundle.getInt(POSITION_ARG);
+                if (mPosition == 0)
+                    disableClickable(iv_previous);
+                if  (mPosition == (mSectionsPagerAdapter.getCount() - 1))
+                    disableClickable(iv_next);
+            }
             else {
                 mPosition = bundle.getInt(POSITION_ARG) - 1;
-                iv_next.setSelected(false);
-                iv_next.setClickable(false);
-                iv_previous.setSelected(false);
-                iv_previous.setClickable(false);
+                disableClickable(iv_next);
+                disableClickable(iv_previous);
             }
         }
     }
     private void disableClickable(ImageView imageView) {
         imageView.setClickable(false);
-        imageView.setColorFilter(Color.parseColor("#a6a6a6"), PorterDuff.Mode.MULTIPLY);
+        imageView.setColorFilter(Color.parseColor("#81D4FA"), PorterDuff.Mode.MULTIPLY);
     }
     private void enableClickable(ImageView imageView){
         imageView.setClickable(true);

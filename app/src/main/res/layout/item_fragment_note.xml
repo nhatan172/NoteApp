@@ -53,7 +53,7 @@
         android:layout_marginRight="5dp"
         android:id="@+id/tv_time"
         android:textSize="14dp"
-        android:textColor="@color/colorLightGray"
+        android:textColor="#424242"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right" />

@@ -46,10 +46,10 @@ public class SpinnerDate extends Spinner {
                     @Override
                     public void onDateSet(DatePicker datePicker, int y, int m, int d) {
                         if (mListDate.size() > 4)
-                            mListDate.set(4, StaticMethod.reformTime(d) + "/" + StaticMethod.reformTime(m) + "/"
+                            mListDate.set(4, StaticMethod.reformTime(d) + "/" + StaticMethod.reformTime(m+1) + "/"
                                     + StaticMethod.reformTime(y));
                         else
-                            mListDate.add(4, StaticMethod.reformTime(d) + "/" + StaticMethod.reformTime(m) + "/"
+                            mListDate.add(4, StaticMethod.reformTime(d) + "/" + StaticMethod.reformTime(m+1) + "/"
                                     + StaticMethod.reformTime(y));
                         mAdapterDate.notifyDataSetChanged();
                         SpinnerDate.this.setSelection(5);

@@ -5,8 +5,10 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:gravity="left|center_vertical"
+    android:background="@drawable/top_bar_gradient"
     app:theme="@style/ThemeOverlay.AppCompat.Light">
     <ImageView
+        android:layout_marginLeft="10dp"
         android:src="@drawable/app_icon"
         android:scaleType="fitXY"
         android:layout_height="25dp"
@@ -29,7 +31,8 @@
             android:scaleType="fitXY"
             android:layout_gravity="right"
             android:src="@drawable/add_icon"
-            android:onClick="goAddActivity"/>
+            android:onClick="goAddActivity"
+            android:layout_marginRight="10dp"/>
     </LinearLayout>
 
 </LinearLayout>
