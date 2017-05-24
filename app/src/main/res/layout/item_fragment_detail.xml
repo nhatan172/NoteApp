@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorWhite"
     android:tag="#ffffff"
-    tools:context="nhatan172.noteapp.Note.activity.DetailActivity">
+    tools:context="nhatan172.noteapp.activity.DetailActivity">
     <TextView
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"
@@ -54,8 +54,7 @@
                 android:id="@+id/ll_dateTimePicker2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <Spinner
+                <nhatan172.noteapp.custom.view.SpinnerDate
                     android:id="@+id/sp_date2"
                     android:layout_width="wrap_content"
                     android:minWidth="75dp"
@@ -63,7 +62,7 @@
                     android:dropDownWidth="wrap_content"
                     android:dropDownVerticalOffset="20dp"
                     />
-                <Spinner
+                <nhatan172.noteapp.custom.view.SpinnerTime
                     android:id="@+id/sp_time2"
                     android:minWidth="75dp"
                     android:layout_width="wrap_content"
@@ -71,7 +70,7 @@
                     android:spinnerMode="dropdown"
                     android:dropDownVerticalOffset="20dp"
                     android:dropDownWidth="wrap_content"
-                    ></Spinner>
+                    ></nhatan172.noteapp.custom.view.SpinnerTime>
                 <ImageView
                     android:id="@+id/iv_close_picker"
                     android:src="@drawable/ic_menu_close_clear_cancel"

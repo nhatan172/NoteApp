@@ -41,7 +41,6 @@ public class NoteContent {
             noteContent.add(nt);
             result.moveToNext();
         }
-        mDatabaseManager.close();
         sNoteContent = noteContent;
         return noteContent;
     }

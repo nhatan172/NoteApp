@@ -38,7 +38,6 @@ public class NoteFragment extends Fragment {
         super.onSaveInstanceState(outState);
     }
 
-
     public static NoteFragment newInstance() {
         NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
@@ -46,7 +45,6 @@ public class NoteFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +52,6 @@ public class NoteFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,8 +70,6 @@ public class NoteFragment extends Fragment {
         }
         return view;
     }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -86,7 +81,6 @@ public class NoteFragment extends Fragment {
                     + " must implement OnListFragmentInteractionListener");
         }
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -98,14 +92,11 @@ public class NoteFragment extends Fragment {
                     + " must implement OnListFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
-
-
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(int position);
     }

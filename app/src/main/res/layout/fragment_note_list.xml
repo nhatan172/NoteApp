@@ -7,5 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
+    android:layout_gravity="center"
     tools:context="nhatan172.noteapp.activity.fragment.NoteFragment"
-    tools:listitem="@layout/fragment_note" />
+    tools:listitem="@layout/item_fragment_note" />

@@ -25,14 +25,13 @@ public class NoteTable {
         mDatabaseManager = databaseManager;
     }
     public long insertNote(Note note){
-        String timeAlarm = "";
         SQLiteDatabase db = mDatabaseManager.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_TITLE, note.getTitle());
         contentValues.put(COLUMN_NAME_NOTE, note.getNote());
         contentValues.put(COLUMN_NAME_COLOR, note.getColor());
         contentValues.put(COLUMN_NAME_DATE, note.getUpdatedTime());
-        contentValues.put(COLUMN_NAME_TIMEALARM,timeAlarm);
+        contentValues.put(COLUMN_NAME_TIMEALARM,note.getTimeAlarm());
         return db.insert(TABLE_NAME, null, contentValues);
     }
 
