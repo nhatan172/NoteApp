@@ -3,7 +3,6 @@ package nhatan172.noteapp.notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import java.text.ParseException;
@@ -13,6 +12,8 @@ import java.util.Date;
 import nhatan172.noteapp.activity.MainActivity;
 
 public class AlarmManager {
+    public static final String ARG_INDEX = "INDEX";
+    public static final String ARG_NOTE = "NOTE";
     public static void setAlarm(int id, String time, String title) {
         if (!time.equals("")) {
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -20,8 +21,8 @@ public class AlarmManager {
                 Date date = df.parse(time);
                 Long alertTime = date.getTime();
                 Bundle infoBunlde = new Bundle();
-                infoBunlde.putInt("INDEX", id);
-                infoBunlde.putString("NOTE", title);
+                infoBunlde.putInt(ARG_INDEX, id);
+                infoBunlde.putString(ARG_NOTE, title);
                 Intent alertIntent = new Intent(MainActivity.getAppContext(), AlarmReceiver.class);
                 alertIntent.putExtras(infoBunlde);
                 android.app.AlarmManager alarmManager = (android.app.AlarmManager) MainActivity

@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import nhatan172.noteapp.custom.adapter.MyNoteRecyclerViewAdapter;
 import nhatan172.noteapp.utils.NoteContent;
@@ -57,6 +56,7 @@ public class NoteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_note_list, container, false);
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             mColumnCount = 3;
+        else mColumnCount = 2;
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;

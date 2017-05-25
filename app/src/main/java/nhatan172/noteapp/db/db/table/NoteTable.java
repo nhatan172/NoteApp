@@ -34,7 +34,8 @@ public class NoteTable {
     public Cursor getAllData(){
         SQLiteDatabase db = mDatabaseManager.getReadableDatabase();
         String query = "SELECT "+ COLUMN_NAME_TITLE + ", " + COLUMN_NAME_NOTE + ", " + COLUMN_NAME_DATE + ", "
-                + COLUMN_NAME_COLOR + ", " +"_id, " + COLUMN_NAME_TIMEALARM + " from notes order by _id asc";
+                + COLUMN_NAME_COLOR + ", " +BaseColumns._ID +", " + COLUMN_NAME_TIMEALARM + " from notes  order by "
+                + BaseColumns._ID +" asc";
         Cursor res = db.rawQuery(query,null);
         return res ;
     }
@@ -49,16 +50,16 @@ public class NoteTable {
         if(note.hasAlarm())
             alarmTime = note.getTimeAlarm();
         contentValues.put(COLUMN_NAME_TIMEALARM,alarmTime);
-        db.update(TABLE_NAME, contentValues, "_id=" + note.getIndex(), null);
+        db.update(TABLE_NAME, contentValues,BaseColumns._ID +"=" + note.getIndex(), null);
     }
     public int deleteNote(int iD){
         SQLiteDatabase db = mDatabaseManager.getWritableDatabase();
-        return db.delete(TABLE_NAME, "_id="+iD,null);
+        return db.delete(TABLE_NAME, BaseColumns._ID +"="+iD,null);
     }
     public int updateAlarmColumn(int iD){
         SQLiteDatabase db = mDatabaseManager.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_DATE,"");
-        return db.update(TABLE_NAME, contentValues, "_id=" + iD, null);
+        return db.update(TABLE_NAME, contentValues,BaseColumns._ID +"=" + iD, null);
     }
 }

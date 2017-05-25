@@ -72,6 +72,8 @@ public class Note {
             return false;
         if (hasAlarm != note.hasAlarm)
             return false;
+        if (!mColor.equals(note.getColor()))
+            return false;
         if (hasAlarm)
             return mTimeAlarm.equals(note.getTimeAlarm());
         else return true;

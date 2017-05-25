@@ -1,20 +1,20 @@
 package nhatan172.noteapp.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,20 +23,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import nhatan172.noteapp.R;
 import nhatan172.noteapp.activity.activity.base.BaseActivity;
 import nhatan172.noteapp.custom.view.EditTextDrawLine;
 import nhatan172.noteapp.custom.view.SpinnerDate;
 import nhatan172.noteapp.custom.view.SpinnerTime;
 import nhatan172.noteapp.db.db.table.NoteTable;
 import nhatan172.noteapp.model.Note;
-import nhatan172.noteapp.R;
 import nhatan172.noteapp.notification.AlarmManager;
 import nhatan172.noteapp.utils.StaticMethod;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class AdditionActivity extends BaseActivity {
-    private AlertDialog mAlertDialog;
+    private Dialog mDialog;
     private LinearLayout ll_activity;
     private String mBackGroundColor = "#ffffff";
     private EditTextDrawLine et_note;
@@ -99,6 +99,7 @@ public class AdditionActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) customNav.getParent();
         toolbar.setContentInsetsAbsolute(0, 0);
     }
+
     public void initView() {
         TextView tv_time = (TextView) findViewById(R.id.tv_time_created);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -130,18 +131,18 @@ public class AdditionActivity extends BaseActivity {
 
     public void popUpColor(View clickedButton) {
         View customPopUp = getLayoutInflater().inflate(R.layout.dialog_select_color, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(customPopUp);
-        mAlertDialog = builder.create();
-        mAlertDialog.show();
+        mDialog = new Dialog(this);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setContentView(customPopUp);
+        mDialog.show();
     }
 
     public void changeBackgroud(View v) {
-        mAlertDialog.dismiss();
+        mDialog.dismiss();
         ll_activity.setBackgroundColor(Color.parseColor((String) v.getTag()));
         mBackGroundColor = (String) v.getTag();
-
     }
+
     public void insertNote(View v) {
         saveData();
         backActivity();
@@ -153,6 +154,9 @@ public class AdditionActivity extends BaseActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA},
                         5);
+            } else {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
             }
         }
         else {
@@ -201,14 +205,17 @@ public class AdditionActivity extends BaseActivity {
             AlarmManager.setAlarm((int)noteIndex, timeAlarm, title);
         return true;
     }
+
     public void showDateTimePicker(View v) {
         tv_alarm.setVisibility(View.INVISIBLE);
         ll_dateTimePicker.setVisibility(View.VISIBLE);
     }
+
     public void closeDateTimePicker(View v) {
         tv_alarm.setVisibility(View.VISIBLE);
         ll_dateTimePicker.setVisibility(View.INVISIBLE);
     }
+
     public String getAlarmTime() {
         String time = sp_time.getListTime().get(sp_time.getSelectedItemPosition());
         String date = "";

@@ -13,16 +13,16 @@ import nhatan172.noteapp.activity.DetailActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private int  mNoteIndex = 0;
-    private static final String ARG_NOTE = "NOTE";
-    private static final String ARG_INDEX = "INDEX";
+    private final String MODE_ARG = "MODE";
+    private final String POSITION_ARG = "ItemPosition";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         String noteText = "";
         if (bundle != null) {
-            noteText = bundle.getString(ARG_NOTE);
-            mNoteIndex = bundle.getInt(ARG_INDEX);
+            noteText = bundle.getString(AlarmManager.ARG_NOTE);
+            mNoteIndex = bundle.getInt(AlarmManager.ARG_INDEX);
         }
         createNotification(context, "Note notification", noteText);
     }
@@ -30,8 +30,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void createNotification(Context context, String title, String noteText) {
         Intent newIntent = new Intent(context,DetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("MODE",2);
-        bundle.putInt("ItemPosition",mNoteIndex);
+        bundle.putInt(MODE_ARG,2);
+        bundle.putInt(POSITION_ARG,mNoteIndex);
         newIntent.putExtras(bundle);
         PendingIntent notifiIntent = PendingIntent.getActivity(context, mNoteIndex, newIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

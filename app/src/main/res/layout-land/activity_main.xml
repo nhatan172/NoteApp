@@ -11,5 +11,6 @@
         android:id="@+id/note_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="7dp"
         android:paddingBottom="10dp"/>
 </RelativeLayout>

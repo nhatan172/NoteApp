@@ -1,19 +1,18 @@
 package nhatan172.noteapp.activity;
 
-import android.app.ActivityOptions;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import  android.support.v7.app.ActionBar.LayoutParams;
-import android.support.v7.app.ActionBar;
 
-import nhatan172.noteapp.activity.activity.base.BaseActivity;
 import nhatan172.noteapp.R;
+import nhatan172.noteapp.activity.activity.base.BaseActivity;
 import nhatan172.noteapp.activity.fragment.NoteFragment;
 
 public class MainActivity extends BaseActivity implements NoteFragment.OnListFragmentInteractionListener {

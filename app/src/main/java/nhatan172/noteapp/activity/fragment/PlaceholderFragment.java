@@ -56,7 +56,8 @@ public class PlaceholderFragment extends Fragment {
     }
     @Override
     public void onStop() {
-        saveData();
+        if (!DetailActivity.sDeleteAction)
+            saveData();
         super.onStop();
     }
     public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -108,6 +109,7 @@ public class PlaceholderFragment extends Fragment {
         mListener = null;
     }
     public interface OnPaperFragmentInteractionListener {
+        // For CallBack action from fragment
         void onPaperFragmentInteraction(Editable et,Editable et2);
     }
     private void initView(){
@@ -168,22 +170,6 @@ public class PlaceholderFragment extends Fragment {
         });
     }
 
-    public class ShowDateTimePicker implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            tv_alarm.setVisibility(View.INVISIBLE);
-            ll_dateTimePicker.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public class CloseDateTimePicker implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            tv_alarm.setVisibility(View.VISIBLE);
-            ll_dateTimePicker.setVisibility(View.INVISIBLE);
-        }
-    }
-
     public boolean saveData() {
         Note newItem = new Note();
         String note = StaticMethod.handleString(et_note.getText());
@@ -207,8 +193,7 @@ public class PlaceholderFragment extends Fragment {
             newItem.setHasAlarm(true);
             if(!item.getTimeAlarm().equals(timeAlarm))
                 AlarmManager.setAlarm(item.getIndex(),timeAlarm,title);
-        }
-        else{
+        } else {
             newItem.setHasAlarm(false);
             if(item.hasAlarm())
                 AlarmManager.cancelAlarm(item.getIndex());
@@ -218,6 +203,22 @@ public class PlaceholderFragment extends Fragment {
             NoteContent.sNoteContent.set(agrs, newItem);
         }
         return true;
+    }
+
+    public class ShowDateTimePicker implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            tv_alarm.setVisibility(View.INVISIBLE);
+            ll_dateTimePicker.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public class CloseDateTimePicker implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            tv_alarm.setVisibility(View.VISIBLE);
+            ll_dateTimePicker.setVisibility(View.INVISIBLE);
+        }
     }
 
     public String getAlarmTime(){

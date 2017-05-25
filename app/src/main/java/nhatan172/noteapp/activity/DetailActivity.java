@@ -1,38 +1,38 @@
 package nhatan172.noteapp.activity;
 
-import nhatan172.noteapp.notification.AlarmManager;
-
+import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-
 import android.graphics.PorterDuff;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import nhatan172.noteapp.R;
 import nhatan172.noteapp.activity.activity.base.BaseActivity;
-import nhatan172.noteapp.db.db.table.NoteTable;
-import nhatan172.noteapp.model.Note;
-import nhatan172.noteapp.custom.view.DetailPager;
 import nhatan172.noteapp.activity.fragment.PlaceholderFragment;
 import nhatan172.noteapp.custom.adapter.SectionsPagerAdapter;
-import nhatan172.noteapp.utils.NoteContent;
+import nhatan172.noteapp.custom.view.DetailPager;
 import nhatan172.noteapp.db.DatabaseManager;
-import nhatan172.noteapp.R;
+import nhatan172.noteapp.db.db.table.NoteTable;
+import nhatan172.noteapp.model.Note;
+import nhatan172.noteapp.notification.AlarmManager;
+import nhatan172.noteapp.utils.NoteContent;
 import nhatan172.noteapp.utils.StaticMethod;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -43,11 +43,11 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
     private ImageView iv_next;
     private ImageView iv_previous;
     private TextView tv_actionbar;
-    private AlertDialog mAlertDialog;
+    private Dialog mDialog;
     private String mShareText = "Note";
     private int mPosition = 0;
     private NoteTable mNoteTable ;
-
+    public static boolean sDeleteAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,8 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
                     disableClickable(iv_next);
             }
             else {
-                mPosition = bundle.getInt(POSITION_ARG) - 1;
+                int index = bundle.getInt(POSITION_ARG);
+                mPosition =  NoteContent.getPosition(index);
                 disableClickable(iv_next);
                 disableClickable(iv_previous);
             }
@@ -89,6 +90,7 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
         imageView.clearColorFilter();
     }
     private void initFragmentPaper() {
+        sDeleteAction = false;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mDetailPager = (DetailPager) findViewById(R.id.container);
         mDetailPager.setAdapter(mSectionsPagerAdapter);
@@ -149,9 +151,10 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int index = NoteContent.sNoteContent.get(mDetailPager.getCurrentItem()).getIndex();
-                mNoteTable.deleteNote(index);
                 if(NoteContent.sNoteContent.get(mDetailPager.getCurrentItem()).hasAlarm())
                     AlarmManager.cancelAlarm(index);
+                mNoteTable.deleteNote(index);
+                sDeleteAction = true;
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
             }
@@ -191,22 +194,33 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
 
     public void popUpColor(View clickedButton) {
         View customPopUp = getLayoutInflater().inflate(R.layout.dialog_select_color, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(customPopUp);
-        mAlertDialog = builder.create();
-        mAlertDialog.show();
+        mDialog = new Dialog(this);
+        mDialog.setContentView(customPopUp);
+        mDialog.show();
     }
 
     public void changeBackgroud(View v) {
-        mAlertDialog.dismiss();
+        mDialog.dismiss();
         mDetailPager.getRootView().findViewById(R.id.fragment_detail)
                 .setBackgroundColor(Color.parseColor((String)v.getTag()));
         mDetailPager.getRootView().findViewById(R.id.fragment_detail).setTag(v.getTag());
     }
 
     public void getCamera(View v) {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        5);
+            } else {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
+            }
+        }
+        else {
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivity(intent);
+        }
     }
 
     public void newNote(View v) {

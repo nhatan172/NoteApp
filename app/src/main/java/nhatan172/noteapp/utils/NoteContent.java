@@ -30,7 +30,7 @@ public class NoteContent {
             nt.setUpdatedTime(result.getString(2));
             nt.setColor(result.getString(3));
             String alarmTime = result.getString(5);
-            if(alarmTime!= null && !alarmTime.equals("")){
+            if(alarmTime != null && !alarmTime.equals("")){
                 nt.setHasAlarm(true);
                 nt.setTimeAlarm(alarmTime);
             }
@@ -40,5 +40,17 @@ public class NoteContent {
         sNoteContent = noteContent;
         return noteContent;
     }
-
+    public static int getPosition(int index){
+        if (sNoteContent == null)
+            return 0;
+        int length =  sNoteContent.size();
+        Note note;
+        for (int i = 0; i < length; i++) {
+            note = sNoteContent.get(i);
+            if (note.getIndex() == index) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
