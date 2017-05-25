@@ -8,10 +8,6 @@ import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.db.db.table.NoteTable;
 import nhatan172.noteapp.model.Note;
 
-/**
- * Created by nhata on 29/04/2017.
- */
-
 public class NoteContent {
     private DatabaseManager mDatabaseManager;
     private NoteTable mNoteTable;

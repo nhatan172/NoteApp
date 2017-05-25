@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.LinearLayout;
 
 import nhatan172.noteapp.custom.adapter.MyNoteRecyclerViewAdapter;
 import nhatan172.noteapp.utils.NoteContent;
@@ -27,7 +27,6 @@ public class NoteFragment extends Fragment {
     public NoteFragment( ) {
 
     }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

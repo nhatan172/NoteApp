@@ -21,6 +21,7 @@
         <activity android:name=".activity.AdditionActivity">
         </activity>
         <activity
+            android:exported="true"
             android:name=".activity.DetailActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:fitsSystemWindows="true">
@@ -28,7 +29,6 @@
                 <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
-
         />
         <receiver android:name=".notification.AlarmReceiver" android:enabled="true"
             android:exported="true"/>

@@ -15,10 +15,6 @@ import java.util.Calendar;
 
 import nhatan172.noteapp.utils.StaticMethod;
 
-/**
- * Created by nhata on 12/05/2017.
- */
-
 public class SpinnerTime extends Spinner {
     private ArrayList<String> mListTime;
     private ArrayAdapter<CharSequence> mAdapterTime;

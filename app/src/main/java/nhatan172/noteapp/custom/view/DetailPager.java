@@ -5,15 +5,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Created by nhata on 01/05/2017.
- */
-
 public class DetailPager extends ViewPager {
     public DetailPager(Context context) {
         super(context);
     }
-
     public DetailPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -21,10 +16,16 @@ public class DetailPager extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent event) {
         return false;
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
-
+    @Override
+    public void setCurrentItem(int item) {
+        super.setCurrentItem(item,false);
+    }
+    @Override
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        super.setCurrentItem(item, false);
+    }
 }

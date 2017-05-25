@@ -1,7 +1,10 @@
 package nhatan172.noteapp.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import nhatan172.noteapp.activity.activity.base.BaseActivity;
+import nhatan172.noteapp.custom.view.EditTextDrawLine;
 import nhatan172.noteapp.custom.view.SpinnerDate;
 import nhatan172.noteapp.custom.view.SpinnerTime;
 import nhatan172.noteapp.db.db.table.NoteTable;
@@ -32,23 +36,14 @@ import nhatan172.noteapp.utils.StaticMethod;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class AdditionActivity extends BaseActivity {
-    private final String TITLE_ARG = "TITLE";
-    private final String NOTE_ARG = "NOTE";
-    private final String LISTDATE_ARG = "ListDate";
-    private final String LISTTIME_ARG = "ListTime";
-    private final String STATUS_ARG = "ALRAMSTATUS";
-    private final String TIMEPOST_ARG ="TIMEPOST";
-    private final String DATEPOST_ARG = "DATEPOST";
     private AlertDialog mAlertDialog;
     private LinearLayout ll_activity;
     private String mBackGroundColor = "#ffffff";
-    private EditText et_note;
+    private EditTextDrawLine et_note;
     private EditText et_title;
     private TextView tv_actionbar;
     private TextView tv_alarm;
     private LinearLayout ll_dateTimePicker;
-    private ArrayAdapter<CharSequence> mAdapterTime;
-    private ArrayAdapter<CharSequence> mAdapterDate;
     private ArrayList<String> mListTime;
     private ArrayList<String> mListDate;
     private SpinnerDate sp_date;
@@ -113,7 +108,7 @@ public class AdditionActivity extends BaseActivity {
         tv_alarm = (TextView) findViewById(R.id.tv_alarm);
         ll_activity = (LinearLayout) findViewById(R.id.activity_add);
         et_title = (EditText) findViewById(R.id.et_title);
-        et_note = (EditText) findViewById(R.id.et_note);
+        et_note = (EditTextDrawLine) findViewById(R.id.et_note);
         sp_time = (SpinnerTime) findViewById(R.id.sp_time);
         sp_date = (SpinnerDate) findViewById(R.id.sp_date);
         et_title.addTextChangedListener(new TextWatcher() {
@@ -153,19 +148,26 @@ public class AdditionActivity extends BaseActivity {
     }
 
     public void getCamera(View v) {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        5);
+            }
+        }
+        else {
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivity(intent);
+        }
     }
 
     public void backActivity() {
         Intent newAct = new Intent(this, MainActivity.class);
         startActivity(newAct);
     }
-
     public void backAction(View v) {
         backActivity();
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -174,7 +176,6 @@ public class AdditionActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
     private boolean saveData() {
         String noteText = StaticMethod.handleString(et_note.getText());
         String title = StaticMethod.handleString(et_title.getText());
@@ -198,15 +199,12 @@ public class AdditionActivity extends BaseActivity {
         long noteIndex = mNoteTable.insertNote(note);
         if(ll_dateTimePicker.getVisibility() == View.VISIBLE)
             AlarmManager.setAlarm((int)noteIndex, timeAlarm, title);
-        mDatabaseManager.close();
         return true;
     }
-
     public void showDateTimePicker(View v) {
         tv_alarm.setVisibility(View.INVISIBLE);
         ll_dateTimePicker.setVisibility(View.VISIBLE);
     }
-
     public void closeDateTimePicker(View v) {
         tv_alarm.setVisibility(View.VISIBLE);
         ll_dateTimePicker.setVisibility(View.INVISIBLE);

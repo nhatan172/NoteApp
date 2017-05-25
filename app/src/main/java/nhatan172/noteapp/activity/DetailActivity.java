@@ -78,6 +78,7 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
                 disableClickable(iv_previous);
             }
         }
+        mDetailPager.setCurrentItem(mPosition);
     }
     private void disableClickable(ImageView imageView) {
         imageView.setClickable(false);
@@ -91,7 +92,6 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mDetailPager = (DetailPager) findViewById(R.id.container);
         mDetailPager.setAdapter(mSectionsPagerAdapter);
-        mDetailPager.setCurrentItem(mPosition);
         mDetailPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -152,7 +152,6 @@ public class DetailActivity extends BaseActivity implements PlaceholderFragment.
                 mNoteTable.deleteNote(index);
                 if(NoteContent.sNoteContent.get(mDetailPager.getCurrentItem()).hasAlarm())
                     AlarmManager.cancelAlarm(index);
-                mDatabaseManager.close();
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
             }

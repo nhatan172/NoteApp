@@ -23,22 +23,23 @@
         android:layout_marginRight="10dp"
         android:id="@+id/et_title"
         android:textStyle="bold"
-        android:hint="Title"
+        android:hint="@string/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="38dp"
         android:maxLines="1" />
-    <EditText
+    <nhatan172.noteapp.custom.view.EditTextDrawLine
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/et_note"
-        android:hint="Note"
+        android:hint="@string/note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences|textMultiLine"
-        android:drawableBottom="@color/popupText"/>
-
+        android:drawableBottom="@color/popupText"
+        android:background="@null"/>
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -54,7 +55,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:text="Alarm"
+                android:text="@string/alarm"
                 android:id="@+id/tv_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,15 +65,13 @@
                 android:id="@+id/ll_dateTimePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <nhatan172.noteapp.custom.view.SpinnerDate
                     android:id="@+id/sp_date"
                     android:layout_width="wrap_content"
                     android:minWidth="75dp"
                     android:layout_height="wrap_content"
                     android:dropDownWidth="wrap_content"
-                    android:dropDownVerticalOffset="20dp"
-                    />
+                    android:dropDownVerticalOffset="20dp"/>
                 <nhatan172.noteapp.custom.view.SpinnerTime
                     android:id="@+id/sp_time"
                     android:minWidth="75dp"
@@ -87,8 +86,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:scaleType="fitXY"
-                    android:onClick="closeDateTimePicker"
-                    />
+                    android:onClick="closeDateTimePicker"/>
             </LinearLayout>
         </RelativeLayout>
 

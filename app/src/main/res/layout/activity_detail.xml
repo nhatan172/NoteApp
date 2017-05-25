@@ -50,5 +50,4 @@
             android:src="@drawable/ic_next"
             android:onClick="nextPage"/>
     </LinearLayout>
-
 </LinearLayout>

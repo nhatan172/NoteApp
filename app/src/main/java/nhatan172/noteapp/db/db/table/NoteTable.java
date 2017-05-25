@@ -8,10 +8,6 @@ import android.provider.BaseColumns;
 import nhatan172.noteapp.db.DatabaseManager;
 import nhatan172.noteapp.model.Note;
 
-/**
- * Created by nhata on 24/05/2017.
- */
-
 public class NoteTable {
     public static final String TABLE_NAME = "notes";
     public static final String COLUMN_NAME_TITLE = "title";

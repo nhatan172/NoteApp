@@ -4,7 +4,6 @@ import android.text.Editable;
 
 import java.util.Calendar;
 
-
 public class StaticMethod {
     //Clean space in head of string
     public static String handleString(Editable editable){

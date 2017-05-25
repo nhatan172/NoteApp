@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import nhatan172.noteapp.activity.DetailActivity;
+import nhatan172.noteapp.custom.view.EditTextDrawLine;
 import nhatan172.noteapp.custom.view.SpinnerDate;
 import nhatan172.noteapp.custom.view.SpinnerTime;
 import nhatan172.noteapp.db.db.table.NoteTable;
@@ -37,7 +38,7 @@ public class PlaceholderFragment extends Fragment {
     private View rootView;
     private LinearLayout ll_activity ;
     private TextView tv_dateUpdate ;
-    private EditText et_note ;
+    private EditTextDrawLine et_note ;
     private EditText et_title ;
     private LinearLayout ll_dateTimePicker;
     private SpinnerTime sp_time;
@@ -112,7 +113,7 @@ public class PlaceholderFragment extends Fragment {
     private void initView(){
         ll_activity = (LinearLayout) rootView.findViewById(R.id.fragment_detail);
         tv_dateUpdate = (TextView)rootView.findViewById(R.id.tv_time_created2);
-        et_note = (EditText)rootView.findViewById(R.id.et_note2);
+        et_note = (EditTextDrawLine) rootView.findViewById(R.id.et_note2);
         et_title = (EditText)rootView.findViewById(R.id.et_title2);
         tv_dateUpdate.setText( item.getUpdatedTime());
         et_title.setText(item.getTitle());
@@ -187,6 +188,9 @@ public class PlaceholderFragment extends Fragment {
         Note newItem = new Note();
         String note = StaticMethod.handleString(et_note.getText());
         String title = StaticMethod.handleString(et_title.getText());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String time = df.format(Calendar.getInstance().getTime());
+        String timeAlarm = "";
         if (title.isEmpty())
             if (note.isEmpty())
                 return false;
@@ -194,12 +198,9 @@ public class PlaceholderFragment extends Fragment {
                 title = note.substring(0, (note.length() < 25 ? note.length() : 25));
         newItem.setTitle(title);
         newItem.setNote(note);
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String time = df.format(Calendar.getInstance().getTime());
         newItem.setUpdatedTime(time);
         newItem.setColor((String)ll_activity.getTag());
         newItem.setIndex(item.getIndex());
-        String timeAlarm = "";
         if(ll_dateTimePicker.getVisibility() == View.VISIBLE) {
             timeAlarm = getAlarmTime();
             newItem.setTimeAlarm(timeAlarm);
@@ -212,8 +213,10 @@ public class PlaceholderFragment extends Fragment {
             if(item.hasAlarm())
                 AlarmManager.cancelAlarm(item.getIndex());
         }
-        mNoteTable.updateNote(newItem);
-        NoteContent.sNoteContent.set(agrs,newItem);
+        if (!item.equals(newItem)) {
+            mNoteTable.updateNote(newItem);
+            NoteContent.sNoteContent.set(agrs, newItem);
+        }
         return true;
     }
 

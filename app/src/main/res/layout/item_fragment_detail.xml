@@ -17,18 +17,21 @@
         android:layout_height="wrap_content" />
     <EditText
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/et_title2"
         android:textStyle="bold"
-        android:hint="Title"
-        android:layout_width="wrap_content"
+        android:hint="@string/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1" />
-    <EditText
+    <nhatan172.noteapp.custom.view.EditTextDrawLine
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/et_note2"
-        android:hint="Note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:hint="@string/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"/>
     <LinearLayout
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"

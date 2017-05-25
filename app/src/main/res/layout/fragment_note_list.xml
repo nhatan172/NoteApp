@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     android:name="nhatan172.noteapp.NoteFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:layoutManager="LinearLayoutManager"
-    android:layout_gravity="center"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
     tools:context="nhatan172.noteapp.activity.fragment.NoteFragment"
     tools:listitem="@layout/item_fragment_note" />

@@ -1,9 +1,5 @@
 package nhatan172.noteapp.model;
 
-/**
- * Created by nhata on 21/04/2017.
- */
-
 public class Note {
     private int mIndex;
     private String mNote;
@@ -69,5 +65,15 @@ public class Note {
         return mIndex;
     }
 
-
+    public boolean equals(Note note){
+        if (!mTitle.equals(note.getTitle()))
+            return false;
+        if (!mNote.equals(note.getTitle()))
+            return false;
+        if (hasAlarm != note.hasAlarm)
+            return false;
+        if (hasAlarm)
+            return mTimeAlarm.equals(note.getTimeAlarm());
+        else return true;
+    }
 }

@@ -1,5 +1,6 @@
 package nhatan172.noteapp.activity;
 
+import android.app.ActivityOptions;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -18,15 +19,12 @@ import nhatan172.noteapp.activity.fragment.NoteFragment;
 public class MainActivity extends BaseActivity implements NoteFragment.OnListFragmentInteractionListener {
     private static Context sContext;
     private NoteFragment mNoteFragment;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MainActivity.sContext = getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setActionBar();
-
         if(savedInstanceState == null) {
             mNoteFragment = NoteFragment.newInstance();
             FragmentTransaction ft = getFragmentManager().beginTransaction();

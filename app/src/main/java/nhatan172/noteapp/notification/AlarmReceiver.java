@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat.Builder;
 import nhatan172.noteapp.R;
 import nhatan172.noteapp.activity.DetailActivity;
 
-
 public class AlarmReceiver extends BroadcastReceiver {
     private int  mNoteIndex = 0;
     private static final String ARG_NOTE = "NOTE";
@@ -31,7 +30,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void createNotification(Context context, String title, String noteText) {
         Intent newIntent = new Intent(context,DetailActivity.class);
         Bundle bundle = new Bundle();
-
         bundle.putInt("MODE",2);
         bundle.putInt("ItemPosition",mNoteIndex);
         newIntent.putExtras(bundle);

@@ -12,10 +12,6 @@ import java.util.Date;
 
 import nhatan172.noteapp.activity.MainActivity;
 
-/**
- * Created by nhata on 24/05/2017.
- */
-
 public class AlarmManager {
     public static void setAlarm(int id, String time, String title) {
         if (!time.equals("")) {
@@ -24,7 +20,7 @@ public class AlarmManager {
                 Date date = df.parse(time);
                 Long alertTime = date.getTime();
                 Bundle infoBunlde = new Bundle();
-                infoBunlde.putInt("INDEX", (int)id);
+                infoBunlde.putInt("INDEX", id);
                 infoBunlde.putString("NOTE", title);
                 Intent alertIntent = new Intent(MainActivity.getAppContext(), AlarmReceiver.class);
                 alertIntent.putExtras(infoBunlde);

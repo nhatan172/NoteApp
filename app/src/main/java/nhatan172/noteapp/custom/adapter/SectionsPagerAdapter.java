@@ -11,12 +11,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-
     @Override
     public Fragment getItem(int position) {
         return PlaceholderFragment.newInstance(position);
     }
-
     @Override
     public int getCount() {
         return NoteContent.sNoteContent.size();

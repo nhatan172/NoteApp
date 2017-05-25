@@ -14,7 +14,6 @@ import nhatan172.noteapp.R;
 
 import java.util.List;
 
-
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
     private final List<Note> mValues;
@@ -24,14 +23,12 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
         mValues = items;
         mListener = listener;
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_fragment_note, parent, false);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
@@ -53,7 +50,6 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
         if (!mValues.get(position).hasAlarm())
             holder.mImageView.setVisibility(View.INVISIBLE);
     }
-
     @Override
     public int getItemCount() {
         return mValues.size();
@@ -75,6 +71,5 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
             mNote = (TextView) view.findViewById(R.id.tv_note);
             mTime = (TextView)view.findViewById(R.id.tv_time);
         }
-
     }
 }

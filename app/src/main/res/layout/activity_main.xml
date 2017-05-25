@@ -4,13 +4,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@color/colorBackGround"
-    tools:context="nhatan172.noteapp.Note.activity.MainActivity">
+    tools:context="nhatan172.noteapp.activity.MainActivity">
     <RelativeLayout
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:id="@+id/note_fragment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
         android:paddingBottom="10dp"/>
 </RelativeLayout>
